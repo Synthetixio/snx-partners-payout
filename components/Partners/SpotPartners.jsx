@@ -89,29 +89,39 @@ const Partners = () => {
   useEffect(() => {
     (async () => {
       // Get block numbers corresponding to the start of this month and last month
-      const tz_offset = new Date().getTimezoneOffset() * 60 * 1000;
       const periodEnd = startOfMonth(new Date());
       const periodStart = subMonths(periodEnd, 1);
       setPeriodName(format(periodStart, "MMMM y"));
 
+      const startTimeOffsetMs = periodStart.getTimezoneOffset() * 60 * 1000;
+      const endTimeOffsetMs = periodEnd.getTimezoneOffset() * 60 * 1000;
+
       const l1StartBlock = (
         await l1BlocksClient.query({
-          query: gql(blocksQuery((periodStart.getTime() - tz_offset) / 1000)),
+          query: gql(
+            blocksQuery((periodStart.getTime() - startTimeOffsetMs) / 1000)
+          ),
         })
       ).data.blocks[0].number;
       const l1EndBlock = (
         await l1BlocksClient.query({
-          query: gql(blocksQuery((periodEnd.getTime() - tz_offset) / 1000)),
+          query: gql(
+            blocksQuery((periodEnd.getTime() - endTimeOffsetMs) / 1000)
+          ),
         })
       ).data.blocks[0].number;
       const l2StartBlock = (
         await l2BlocksClient.query({
-          query: gql(blocksQuery((periodStart.getTime() - tz_offset) / 1000)),
+          query: gql(
+            blocksQuery((periodStart.getTime() - startTimeOffsetMs) / 1000)
+          ),
         })
       ).data.blocks[0].number;
       const l2EndBlock = (
         await l2BlocksClient.query({
-          query: gql(blocksQuery((periodEnd.getTime() - tz_offset) / 1000)),
+          query: gql(
+            blocksQuery((periodEnd.getTime() - endTimeOffsetMs) / 1000)
+          ),
         })
       ).data.blocks[0].number;
       setL1StartBlockNumber(l1StartBlock);
