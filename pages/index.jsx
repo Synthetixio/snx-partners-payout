@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 
 import Network from "../components/Network";
-import SpotPartners from "../components/Partners/SpotPartners";
 import PerpsPartners from "../components/Partners/PerpsPartners";
 import CouncilMembers from "../components/CouncilMembers";
 import ManualEntry from "../components/ManualEntry";
@@ -60,16 +59,12 @@ const Home = () => {
 
         <Tabs isFitted>
           <TabList>
-            <Tab fontWeight={600}>Spot</Tab>
             <Tab fontWeight={600}>Perps</Tab>
             <Tab fontWeight={600}>Council</Tab>
             <Tab fontWeight={600}>Manual</Tab>
           </TabList>
 
           <TabPanels>
-            <TabPanel px={0}>
-              <SpotPartners />
-            </TabPanel>
             <TabPanel px={0}>
               <PerpsPartners />
             </TabPanel>
