@@ -22,7 +22,6 @@ import {
   AMBASSADORS_COUNCIL_NFT_ADDRESS,
   GRANTS_COUNCIL_NFT_ADDRESS,
   TREASURY_COUNCIL_NFT_ADDRESS,
-  CC_COUNCIL_NFT_ADDRESS,
 } from "../../config.js";
 
 async function generateSafeBatchSubmitter() {
@@ -116,12 +115,11 @@ const CouncilMembers = () => {
           TREASURY_COUNCIL_NFT_ADDRESS,
           GRANTS_COUNCIL_NFT_ADDRESS,
           AMBASSADORS_COUNCIL_NFT_ADDRESS,
-          CC_COUNCIL_NFT_ADDRESS,
         ];
 
         let newPayouts = {};
         for (var i = 0; i < nftAddresses.length; i++) {
-          const layer = nftAddresses[i] == CC_COUNCIL_NFT_ADDRESS ? 1 : 2;
+          const layer = 2;
 
           const nftContract = new ethers.Contract(
             nftAddresses[i],
@@ -153,7 +151,7 @@ const CouncilMembers = () => {
           newPayouts[nftAddresses[i]] = {
             name: await nftContract.name({ blockTag: blockTag(layer) }),
             symbol: await nftContract.symbol({ blockTag: blockTag(layer) }),
-            stipend: CC_COUNCIL_NFT_ADDRESS == nftAddresses[i] ? 1000 : 2000,
+            stipend: 2000,
             members: newMemberAddresses,
           };
         }
@@ -254,7 +252,7 @@ const CouncilMembers = () => {
               symbol={payouts[nftAddress].symbol}
               stipend={payouts[nftAddress].stipend}
               members={payouts[nftAddress].members}
-              layer={nftAddress == CC_COUNCIL_NFT_ADDRESS ? 1 : 2}
+              layer={2}
             />
           );
         })
